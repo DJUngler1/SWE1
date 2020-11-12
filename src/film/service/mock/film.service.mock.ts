@@ -7,7 +7,7 @@ import { logger } from '../../../shared';
 import { v4 as uuid } from 'uuid';
 
 /* eslint-disable @typescript-eslint/no-unused-vars,require-await,@typescript-eslint/require-await */
-export class BuchServiceMock {
+export class FilmServiceMock {
     async findById(id: string) {
         film._id = id;
         return film;
