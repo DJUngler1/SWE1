@@ -1,18 +1,16 @@
-
-
-import type { Movie, MovieData } from '../entity';
+import type { Film, FilmData } from '../entity';
 import {
-    MovieInvalid,
-    MovieNotExists,
-    MovieServiceError,
+    FilmInvalid,
+    FilmNotExists,
+    FilmServiceError,
     IsbnExists,
     TitelExists,
     VersionInvalid,
     VersionOutdated,
 } from './errors';
-import { MovieModel, validateMovie } from '../entity';
+import { FilmModel, validateFilm } from '../entity';
 import { dbConfig, logger, mailConfig, serverConfig } from '../../shared';
-import { MovieServiceMock } from './mock';
+import { FilmServiceMock } from './mock';
 import type { Document } from 'mongoose';
 import JSON5 from 'json5';
 import type { SendMailOptions } from 'nodemailer';
@@ -21,12 +19,12 @@ import { startSession } from 'mongoose';
 const { mockDB } = dbConfig;
 
 
-export class BuchService {
-    private readonly mock: MovieServiceMock | undefined;
+export class FilmService {
+    private readonly mock: FilmServiceMock | undefined;
 
     constructor() {
         if (mockDB) {
-            this.mock = new MovieServiceMock();
+            this.mock = new FilmServiceMock();
         }
     }
 
@@ -40,37 +38,37 @@ export class BuchService {
     //           Stattdessen ist im Promise-Objekt die Fehlerursache enthalten.
 
 
-    // Movie mit id suchen
+    // Film mit id suchen
     async findById(id: string) {
         if (this.mock !== undefined) {
             return this.mock.findById(id);
         }
-        logger.debug(`BuchService.findById(): id= ${id}`);
+        logger.debug(`FilmService.findById(): id= ${id}`);
 
-        // ein Buch zur gegebenen ID asynchron suchen
+        // einen Film zur gegebenen ID asynchron suchen
         // Pattern "Active Record" (urspruengl. von Ruby-on-Rails)
         // null falls nicht gefunden
         // lean() liefert ein "Plain JavaScript Object" statt ein Mongoose Document
         // so dass der virtuelle getter "id" auch nicht mehr vorhanden ist
-        const buch = await MovieModel.findById(id).lean<MovieData>();
-        return buch ?? undefined;
+        const film = await FilmModel.findById(id).lean<FilmData>();
+        return film ?? undefined;
     }
 
-    //Movie mit query suchen
+    //Film mit query suchen
     async find(query?: any | undefined) {
         if (this.mock !== undefined) {
             return this.mock.find(query);
         }
 
-        logger.debug(`MovieService.find(): query=${JSON5.stringify(query)}`);
+        logger.debug(`FilmService.find(): query=${JSON5.stringify(query)}`);
 
         // alle Buecher asynchron suchen u. aufsteigend nach titel sortieren
         // https://docs.mongodb.org/manual/reference/object-id
         // entries(): { titel: 'a', rating: 5 } => [{ titel: 'x'}, {rating: 5}]
         if (query === undefined || Object.entries(query).length === 0) {
-            logger.debug('BuchService.find(): alle Buecher');
+            logger.debug('FilmService.find(): alle Buecher');
             // lean() liefert ein "Plain JavaScript Object" statt ein Mongoose Document
-            return MovieModel.find().sort('titel').lean<MovieData>();
+            return FilmModel.find().sort('titel').lean<FilmData>();
         }
 
         // { titel: 'a', rating: 5, javascript: true }
@@ -103,40 +101,40 @@ export class BuchService {
             dbQuery.schlagwoerter = schlagwoerter;
         }
 
-        logger.debug(`MovieService.find(): dbQuery=${JSON5.stringify(dbQuery)}`);
+        logger.debug(`FilmService.find(): dbQuery=${JSON5.stringify(dbQuery)}`);
 
         // Pattern "Active Record" (urspruengl. von Ruby-on-Rails)
         // leeres Array, falls nichts gefunden wird
         // lean() liefert ein "Plain JavaScript Object" statt ein Mongoose Document
-        return MovieModel.find(dbQuery).lean<MovieData>();
-        // Buch.findOne(query), falls das Suchkriterium eindeutig ist
+        return FilmModel.find(dbQuery).lean<FilmData>();
+        // Film.findOne(query), falls das Suchkriterium eindeutig ist
         // bei findOne(query) wird null zurueckgeliefert, falls nichts gefunden
     }
 
-    async create(movieData: Movie) {
+    async create(filmData: Film) {
         if (this.mock !== undefined) {
-            return this.mock.create(movieData);
+            return this.mock.create(filmData);
         }
 
         logger.debug(
-            `MovieService.create(): movieData=${JSON5.stringify(movieData)}`,
+            `FilmService.create(): filmData=${JSON5.stringify(filmData)}`,
         );
-        const result = await this.validateCreate(movieData);
-        if (result instanceof MovieServiceError) {
+        const result = await this.validateCreate(filmData);
+        if (result instanceof FilmServiceError) {
             return result;
         }
 
-        const movie = new MovieModel(movieData);
-        let movieSaved!: Document;
+        const film = new FilmModel(filmData);
+        let filmSaved!: Document;
         // https://www.mongodb.com/blog/post/quick-start-nodejs--mongodb--how-to-implement-transactions
         const session = await startSession();
         try {
             await session.withTransaction(async () => {
-                movieSaved = await movie.save();
+                filmSaved = await film.save();
             });
         } catch (err: unknown) {
             logger.error(
-                `MovieService.create(): Die Transaktion wurde abgebrochen: ${JSON5.stringify(
+                `FilmService.create(): Die Transaktion wurde abgebrochen: ${JSON5.stringify(
                     err,
                 )}`,
             );
@@ -144,62 +142,62 @@ export class BuchService {
         } finally {
             session.endSession();
         }
-        const movieDataSaved: MovieData = movieSaved.toObject(); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        const filmDataSaved: FilmData = filmSaved.toObject(); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
         logger.debug(
-            `MovieService.create(): movieDataSaved=${JSON5.stringify(
-                movieDataSaved,
+            `FilmService.create(): filmDataSaved=${JSON5.stringify(
+                filmDataSaved,
             )}`,
         );
 
-        await this.sendmail(movieDataSaved);
+        await this.sendmail(filmDataSaved);
 
-        return movieDataSaved;
+        return filmDataSaved;
     }
 
-    async update(movieData: Movie, versionStr: string) {
+    async update(filmData: Film, versionStr: string) {
         if (this.mock !== undefined) {
-            return this.mock.update(movieData);
+            return this.mock.update(filmData);
         }
 
         logger.debug(
-            `MovieService.update(): movieData=${JSON5.stringify(movieData)}`,
+            `FilmService.update(): filmData=${JSON5.stringify(filmData)}`,
         );
-        logger.debug(`MovieService.update(): versionStr=${versionStr}`);
+        logger.debug(`FilmService.update(): versionStr=${versionStr}`);
 
-        const validateResult = await this.validateUpdate(movieData, versionStr);
-        if (validateResult instanceof MovieServiceError) {
+        const validateResult = await this.validateUpdate(filmData, versionStr);
+        if (validateResult instanceof FilmServiceError) {
             return validateResult;
         }
 
         // findByIdAndReplace ersetzt ein Document mit ggf. weniger Properties
-        const movie = new MovieModel(movieData);
+        const film = new FilmModel(filmData);
         const updateOptions = { new: true };
-        const result = await MovieModel.findByIdAndUpdate(
-            movie._id,
-            movie,
+        const result = await FilmModel.findByIdAndUpdate(
+            film._id,
+            film,
             updateOptions,
-        ).lean<MovieData>();
+        ).lean<FilmData>();
         if (result === null) {
-            return new MovieNotExists(movie._id);
+            return new FilmNotExists(film._id);
         }
 
         if (result.__v !== undefined) {
             result.__v++;
         }
-        logger.debug(`MovieService.update(): result=${JSON5.stringify(result)}`);
+        logger.debug(`FilmService.update(): result=${JSON5.stringify(result)}`);
 
         // Weitere Methoden von mongoose zum Aktualisieren:
-        //    Buch.findOneAndUpdate(update)
-        //    buch.update(bedingung)
+        //    Film.findOneAndUpdate(update)
+        //    film.update(bedingung)
         return Promise.resolve(result);
     }
 
-    async findOneAndUpdate(update: Movie) {
+    async findOneAndUpdate(update: Film) {
         if(this.mock !== undefined){
             return this.mock.update(update);
         }
         logger.debug(
-            `MovieService.findOneAndUpdate(): update=${JSON5.stringify(update)}`,
+            `FilmService.findOneAndUpdate(): update=${JSON5.stringify(update)}`,
         );
         
     }
@@ -208,83 +206,83 @@ export class BuchService {
         if (this.mock !== undefined) {
             return this.mock.remove(id);
         }
-        logger.debug(`MovieService.delete(): id=${id}`);
+        logger.debug(`FilmService.delete(): id=${id}`);
 
-        // Das Buch zur gegebenen ID asynchron loeschen
-        const { deletedCount } = await MovieModel.deleteOne({ _id: id }); // eslint-disable-line @typescript-eslint/naming-convention
-        logger.debug(`MovieService.delete(): deletedCount=${deletedCount}`);
+        // Das Film zur gegebenen ID asynchron loeschen
+        const { deletedCount } = await FilmModel.deleteOne({ _id: id }); // eslint-disable-line @typescript-eslint/naming-convention
+        logger.debug(`FilmService.delete(): deletedCount=${deletedCount}`);
         return deletedCount !== undefined;
 
         // Weitere Methoden von mongoose, um zu loeschen:
-        //  Buch.findByIdAndRemove(id)
-        //  Buch.findOneAndRemove(bedingung)
+        //  Film.findByIdAndRemove(id)
+        //  Film.findOneAndRemove(bedingung)
     }
 
-    private async validateCreate(movie: Movie) {
-        const msg = validateMovie(movie);
+    private async validateCreate(film: Film) {
+        const msg = validateFilm(film);
         if (msg !== undefined) {
             logger.debug(
-                `BuchService.validateCreate(): Validation Message: ${JSON5.stringify(
+                `FilmService.validateCreate(): Validation Message: ${JSON5.stringify(
                     msg,
                 )}`,
             );
-            return new BuchInvalid(msg);
+            return new FilmInvalid(msg);
         }
 
         // statt 2 sequentiellen DB-Zugriffen waere 1 DB-Zugriff mit OR besser
 
-        const resultTitel = await this.checkTitelExists(buch);
+        const resultTitel = await this.checkTitelExists(film);
         if (resultTitel !== undefined) {
             return resultTitel;
         }
 
-        const resultIsbn = await this.checkIsbnExists(buch);
+        const resultIsbn = await this.checkIsbnExists(film);
         if (resultIsbn !== undefined) {
             return resultIsbn;
         }
 
-        logger.debug('MovieService.validateCreate(): ok');
+        logger.debug('FilmService.validateCreate(): ok');
         return undefined;
     }
 
-    private async checkTitelExists(movie: Movie) {
-        const { titel } = movie;
+    private async checkTitelExists(film: Film) {
+        const { titel } =film;
 
         // Pattern "Active Record" (urspruengl. von Ruby-on-Rails)
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        const tmpId = await MovieModel.findOne({ titel }, { _id: true }).lean<
+        const tmpId = await FilmModel.findOne({ titel }, { _id: true }).lean<
             string
         >();
         if (tmpId !== null) {
             logger.debug(
-                `MovieService.checkTitelExists(): _id=${JSON5.stringify(tmpId)}`,
+                `FilmService.checkTitelExists(): _id=${JSON5.stringify(tmpId)}`,
             );
             return new TitelExists(titel as string, tmpId);
         }
 
-        logger.debug('MovieService.checkTitelExists(): ok');
+        logger.debug('FilmService.checkTitelExists(): ok');
         return undefined;
     }
 
-    private async checkIsbnExists(movie: Movie) {
-        const { isbn } = movie;
+    private async checkIsbnExists(film: Film) {
+        const { isbn } = film;
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        const tmpId = await MovieModel.findOne({ isbn }, { _id: true }).lean<
+        const tmpId = await FilmModel.findOne({ isbn }, { _id: true }).lean<
             string
         >();
 
         if (tmpId !== null) {
             logger.debug(
-                `MovieService.checkIsbnExists(): movie=${JSON5.stringify(tmpId)}`,
+                `FilmService.checkIsbnExists(): film=${JSON5.stringify(tmpId)}`,
             );
             return new IsbnExists(isbn as string, tmpId);
         }
 
-        logger.debug('MovieService.checkIsbnExists(): ok');
+        logger.debug('FilmService.checkIsbnExists(): ok');
         return undefined;
     }
 
-    private async sendmail(movieData: MovieData) {
+    private async sendmail(filmData: FilmData) {
         if (serverConfig.cloud !== undefined) {
             // In der Cloud kann man z.B. "@sendgrid/mail" statt
             // "nodemailer" mit lokalem Mailserver verwenden
@@ -293,8 +291,8 @@ export class BuchService {
 
         const from = '"Wayne Wonder" <Wayne.Wonders@acme.com>';
         const to = '"Dora Deamon" <Dora.Deamon@acme.com>';
-        const subject = `Neuer Movie ${movieData._id}`;
-        const body = `Der Movie namens <strong>${movieData.titel}</strong> ist angelegt`;
+        const subject = `Neuer Film ${filmData._id}`;
+        const body = `Der Film namens <strong>${filmData.titel}</strong> ist angelegt`;
 
         const data: SendMailOptions = { from, to, subject, html: body };
         logger.debug(`sendMail(): data = ${JSON5.stringify(data)}`);
@@ -304,44 +302,44 @@ export class BuchService {
             await nodemailer.createTransport(mailConfig).sendMail(data);
         } catch (err: unknown) {
             logger.error(
-                `MovieService.create(): Fehler beim Verschicken der Email: ${JSON5.stringify(
+                `FilmService.create(): Fehler beim Verschicken der Email: ${JSON5.stringify(
                     err,
                 )}`,
             );
         }
     }
 
-    private async validateUpdate(movie: MovieData, versionStr: string) {
+    private async validateUpdate(film: FilmData, versionStr: string) {
         const result = this.validateVersion(versionStr);
         if (typeof result !== 'number') {
             return result;
         }
 
         const version = result;
-        logger.debug(`MovieService.validateUpdate(): version=${version}`);
+        logger.debug(`FilmService.validateUpdate(): version=${version}`);
         logger.debug(
-            `MovieService.validateUpdate(): movie=${JSON5.stringify(movie)}`,
+            `FilmService.validateUpdate(): film=${JSON5.stringify(film)}`,
         );
 
-        const validationMsg = validateMovie(movie);
+        const validationMsg = validateFilm(film);
         if (validationMsg !== undefined) {
-            return new MovieInvalid(validationMsg);
+            return new FilmInvalid(validationMsg);
         }
 
-        const resultTitel = await this.checkTitelExists(movie);
-        if (resultTitel !== undefined && resultTitel.id !== movie._id) {
+        const resultTitel = await this.checkTitelExists(film);
+        if (resultTitel !== undefined && resultTitel.id !== film._id) {
             return resultTitel;
         }
 
         const resultIdAndVersion = await this.checkIdAndVersion(
-            movie._id,
+            film._id,
             version,
         );
         if (resultIdAndVersion !== undefined) {
             return resultIdAndVersion;
         }
 
-        logger.debug('MovieService.validateUpdate(): ok');
+        logger.debug('FilmService.validateUpdate(): ok');
         return undefined;
     }
 
@@ -349,7 +347,7 @@ export class BuchService {
         if (versionStr === undefined) {
             const error = new VersionInvalid(versionStr);
             logger.debug(
-                `MovieService.validateVersion(): VersionInvalid=${JSON5.stringify(
+                `FilmService.validateVersion(): VersionInvalid=${JSON5.stringify(
                     error,
                 )}`,
             );
@@ -360,7 +358,7 @@ export class BuchService {
         if (Number.isNaN(version)) {
             const error = new VersionInvalid(versionStr);
             logger.debug(
-                `MovieService.validateVersion(): VersionInvalid=${JSON5.stringify(
+                `FilmService.validateVersion(): VersionInvalid=${JSON5.stringify(
                     error,
                 )}`,
             );
@@ -371,22 +369,22 @@ export class BuchService {
     }
 
     private async checkIdAndVersion(id: string | undefined, version: number) {
-        const movieDb = await MovieModel.findById(id).lean<MovieData>();
-        if (movieDb === null) {
-            const result = new MovieNotExists(id);
+        const filmDb = await FilmModel.findById(id).lean<FilmData>();
+        if (filmDb === null) {
+            const result = new FilmNotExists(id);
             logger.debug(
-                `MovieService.checkIdAndVersion(): MovieNotExists=${JSON5.stringify(
+                `FilmService.checkIdAndVersion(): FilmNotExists=${JSON5.stringify(
                     result,
                 )}`,
             );
             return result;
         }
 
-        const versionDb = movieDb.__v ?? 0;
+        const versionDb = filmDb.__v ?? 0;
         if (version < versionDb) {
             const result = new VersionOutdated(id as string, version);
             logger.debug(
-                `MovieService.checkIdAndVersion(): VersionOutdated=${JSON5.stringify(
+                `FilmService.checkIdAndVersion(): VersionOutdated=${JSON5.stringify(
                     result,
                 )}`,
             );
@@ -396,4 +394,3 @@ export class BuchService {
         return undefined;
     }
 }
-
