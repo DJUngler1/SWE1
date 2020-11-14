@@ -28,10 +28,10 @@ export const validateFilm = (film: Film) => {
     const { titel, datum, sprache, homepage } = film;
 
     if (titel === undefined || titel === null || titel === '') {
-        err.titel = 'Ein Buch muss einen Titel haben.';
+        err.titel = 'Ein Film muss einen Titel haben.';
     } else if (!/^\w.*/u.test(titel)) {
         err.titel =
-            'Ein Buchtitel muss mit einem Buchstaben, einer Ziffer oder _ beginnen.';
+            'Ein Filmtitel muss mit einem Filmstaben, einer Ziffer oder _ beginnen.';
     }
 
     if (sprache === undefined || sprache === null || sprache === '') {
@@ -42,7 +42,7 @@ export const validateFilm = (film: Film) => {
         (sprache as unknown) !== 'FRANZÖSISCH'
     ) {
         err.sprache =
-            'Die Sprache eines Buches muss DETUSCH oder ENGLISCH oder FRANZÖSISCH sein.';
+            'Die Sprache eines Filmes muss DETUSCH oder ENGLISCH oder FRANZÖSISCH sein.';
     }
 
     if (typeof datum === 'string' && !isISO8601(datum)) {
@@ -57,7 +57,7 @@ export const validateFilm = (film: Film) => {
         err.homepage = `'${homepage}' ist keine gueltige URL.`;
     }
 
-    logger.debug(`validateBuch: err=${JSON5.stringify(err)}`);
+    logger.debug(`validateFilm: err=${JSON5.stringify(err)}`);
     return Object.entries(err).length === 0 ? undefined : err;
 };
 /* eslint-enable no-null/no-null */
