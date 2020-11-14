@@ -18,7 +18,6 @@ import { startSession } from 'mongoose';
 
 const { mockDB } = dbConfig;
 
-
 export class FilmService {
     private readonly mock: FilmServiceMock | undefined;
 

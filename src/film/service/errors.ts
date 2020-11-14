@@ -1,5 +1,3 @@
-
-
 import type { ValidationErrorMsg } from './../entity';
 
 export class FilmServiceError {} // eslint-disable-line @typescript-eslint/no-extraneous-class
