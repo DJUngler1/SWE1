@@ -18,7 +18,6 @@ export const filmSchema = new Schema(
             enum: ['DEUTSCH', 'ENGLISCH', 'FRANZÖSISCH'],
         },
         datum: Date,
-        isbn: { type: String, required: true, unique: true, immutable: true },
         hauptdarsteller: String,
     },
     {

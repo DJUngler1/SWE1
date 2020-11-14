@@ -6,7 +6,7 @@ import type {
 } from 'mongodb';
 import type { Readable } from 'stream';
 import { closeMongoDBClient } from './mongoDB';
-import { logger } from '../../shared/logger';
+import { logger } from '../logger';
 
 /* eslint-disable max-params */
 export const saveReadable = (
