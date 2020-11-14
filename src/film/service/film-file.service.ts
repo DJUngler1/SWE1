@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { FilmNotExists, FileNotFound, MultipleFiles } from './errors';
+import { FileNotFound, FilmNotExists, MultipleFiles } from './errors';
 import { closeMongoDBClient, connectMongoDB, saveReadable } from '../../shared';
 import { FilmModel } from '../entity';
 import { GridFSBucket } from 'mongodb';
