@@ -1,11 +1,11 @@
-// ID,
-// Titel,
-// Regisseur,
-// Veröffentlichungsdatum,
-// Kategorien,
-// Sprache,
-// Haupdarsteller,
-// Dauer
+// id,
+// titel,
+// regisseur,
+// datum,
+// kategorien,
+// sprache,
+// hauptdarsteller,
+// dauer
 
 export enum Sprache {
     DEUTSCH = 'DEUTSCH',
@@ -21,9 +21,10 @@ export interface Film {
     regisseur: unknown;
     datum: string | Date | undefined;
     kategorien?: string[];
-    sprache: Sprache | undefined | null;
+    sprache: Sprache | '' | undefined | null;
     hauptdarsteller: unknown;
     dauer: number;
+    homepage: string | undefined | null;
 }
 
 export interface FilmData extends Film {

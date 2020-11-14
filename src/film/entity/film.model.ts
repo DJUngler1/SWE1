@@ -40,4 +40,4 @@ filmSchema.plugin(optimistic);
 //     (titel: string, cb: Function) =>
 //         return this.find({titel: titel}, cb)
 
-export const BuchModel = model('Film', filmSchema); // eslint-disable-line @typescript-eslint/naming-convention
+export const FilmModel = model('Film', filmSchema); // eslint-disable-line @typescript-eslint/naming-convention
