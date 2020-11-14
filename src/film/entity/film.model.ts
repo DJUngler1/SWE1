@@ -6,19 +6,28 @@ import { v4 as uuid } from 'uuid';
 
 set('debug', true);
 
+// id,
+// titel,
+// regisseur,
+// datum,
+// kategorien,
+// sprache,
+// hauptdarsteller,
+// dauer
+
 export const filmSchema = new Schema(
     {
         _id: { type: String, default: uuid }, // eslint-disable-line @typescript-eslint/naming-convention
         titel: { type: String, required: true, unique: true },
         regisseur: [Schema.Types.Mixed],
+        datum: Date,
         kategorien: { type: [String], sparse: true },
         sprache: {
             type: String,
             required: true,
             enum: ['DEUTSCH', 'ENGLISCH', 'FRANZÖSISCH'],
         },
-        datum: Date,
-        hauptdarsteller: String,
+        hauptdarsteller: [Schema.Types.Mixed],
     },
     {
         // createdAt und updatedAt als automatisch gepflegte Felder
