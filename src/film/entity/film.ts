@@ -1,9 +1,3 @@
-export enum Sprache {
-    DEUTSCH = 'DEUTSCH',
-    ENGLISCH = 'ENGLISCH',
-    FRANZÖSISCH = 'FRANZÖSISCH',
-}
-
 // ID,
 // Titel,
 // Regisseur,
@@ -12,6 +6,12 @@ export enum Sprache {
 // Sprache,
 // Haupdarsteller,
 // Dauer
+
+export enum Sprache {
+    DEUTSCH = 'DEUTSCH',
+    ENGLISCH = 'ENGLISCH',
+    FRANZÖSISCH = 'FRANZÖSISCH',
+}
 
 // gemeinsames Basis-Interface fuer REST und GraphQL
 export interface Film {
