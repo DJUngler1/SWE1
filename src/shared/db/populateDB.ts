@@ -10,7 +10,7 @@ import { saveReadable } from './gridfs';
 
 const createCollection = async (db: Db) => {
     // http://mongodb.github.io/node-mongodb-native/3.5/api/Db.html#dropCollection
-    const collectionName = 'Buch';
+    const collectionName = 'Film';
     logger.warn(`Die Collection "${collectionName}" wird geloescht...`);
     let dropped = false;
     try {
