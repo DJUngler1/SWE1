@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import type { FilmData, ValidationErrorMsg } from '../entity';
 import {
     FilmInvalid,
@@ -15,9 +16,9 @@ import type { Request, Response } from 'express';
 import JSON5 from 'json5';
 
 export class FilmRequestHandler {
-
     private readonly service = new FilmService();
 
+    // eslint-disable-next-line max-statements
     async findById(req: Request, res: Response) {
         const versionHeader = req.header('If-None-Match');
         logger.debug(
@@ -25,10 +26,9 @@ export class FilmRequestHandler {
         );
         const { id } = req.params;
         logger.debug(`FilmRequestHandler.findById(): id=${id}`);
-
-        let Film: FilmData | undefined;
+        let film: FilmData | undefined;
         try {
-            Film = await this.service.findById(id);
+            film = await this.service.findById(id);
         } catch (err: unknown) {
             logger.error(
                 `FilmRequestHandler.findById(): error=${JSON5.stringify(err)}`,
@@ -37,16 +37,16 @@ export class FilmRequestHandler {
             return;
         }
 
-        if (Film === undefined) {
+        if (film === undefined) {
             logger.debug('FilmRequestHandler.findById(): status=NOT_FOUND');
             res.sendStatus(HttpStatus.NOT_FOUND);
             return;
         }
 
         logger.debug(
-            `FilmRequestHandler.findById(): Film=${JSON5.stringify(Film)}`,
+            `FilmRequestHandler.findById(): Film=${JSON5.stringify(film)}`,
         );
-        const versionDb = Film.__v;
+        const versionDb = film.__v;
         if (versionHeader === `"${versionDb}"`) {
             res.sendStatus(HttpStatus.NOT_MODIFIED);
             return;
@@ -55,8 +55,8 @@ export class FilmRequestHandler {
         res.header('ETag', `"${versionDb}"`);
 
         const baseUri = getBaseUri(req);
- 
-        Film._links = {
+        // eslint-disable-next-line no-underscore-dangle
+        film._links = {
             self: { href: `${baseUri}/${id}` },
             list: { href: `${baseUri}` },
             add: { href: `${baseUri}` },
@@ -64,15 +64,14 @@ export class FilmRequestHandler {
             remove: { href: `${baseUri}/${id}` },
         };
 
-        delete Film._id;
-        delete Film.__v;
-        delete Film.createdAt;
-        delete Film.updatedAt;
-        res.json(Film);
+        delete film._id;
+        delete film.__v;
+        delete film.createdAt;
+        delete film.updatedAt;
+        res.json(film);
     }
 
     async find(req: Request, res: Response) {
-
         const { query } = req;
         logger.debug(
             `FilmRequestHandler.find(): queryParams=${JSON5.stringify(query)}`,
@@ -100,45 +99,44 @@ export class FilmRequestHandler {
 
         const baseUri = getBaseUri(req);
 
-        for await (const Film of buecher) {
-            Film._links = { self: { href: `${baseUri}/${Film._id}` } };
+        for await (const film of buecher) {
+            // eslint-disable-next-line no-underscore-dangle
+            film._links = { self: { href: `${baseUri}/${film._id}` } };
         }
 
         logger.debug(
             `FilmRequestHandler.find(): buecher=${JSON5.stringify(buecher)}`,
         );
-        buecher.forEach((Film) => {
-            delete Film._id;
-            delete Film.__v;
-            delete Film.createdAt;
-            delete Film.updatedAt;
+        buecher.forEach((film) => {
+            delete film._id;
+            delete film.__v;
+            delete film.createdAt;
+            delete film.updatedAt;
         });
         res.json(buecher);
     }
 
     async create(req: Request, res: Response) {
         const contentType = req.header(mimeConfig.contentType);
-        if (
-            contentType?.toLowerCase() !== mimeConfig.json
-        ) {
+        if (contentType?.toLowerCase() !== mimeConfig.json) {
             logger.debug('FilmRequestHandler.create() status=NOT_ACCEPTABLE');
             res.sendStatus(HttpStatus.NOT_ACCEPTABLE);
             return;
         }
 
-        const FilmData = req.body; 
+        const filmData = req.body as FilmData;
         logger.debug(
-            `FilmRequestHandler.create(): body=${JSON5.stringify(FilmData)}`,
+            `FilmRequestHandler.create(): body=${JSON5.stringify(filmData)}`,
         );
 
-        const result = await this.service.create(FilmData);
+        const result = await this.service.create(filmData);
         if (result instanceof FilmServiceError) {
             this.handleCreateError(result, res);
             return;
         }
 
-        const FilmSaved = result;
-        const location = `${getBaseUri(req)}/${FilmSaved._id}`;
+        const filmSaved = result;
+        const location = `${getBaseUri(req)}/${filmSaved._id}`;
         logger.debug(`FilmRequestHandler.create(): location=${location}`);
         res.location(location);
         res.sendStatus(HttpStatus.CREATED);
@@ -158,13 +156,13 @@ export class FilmRequestHandler {
             return;
         }
 
-        const FilmData = req.body; 
-        FilmData._id = id;
+        const filmData = req.body as FilmData;
+        filmData._id = id;
         logger.debug(
-            `FilmRequestHandler.update(): Film=${JSON5.stringify(FilmData)}`,
+            `FilmRequestHandler.update(): Film=${JSON5.stringify(filmData)}`,
         );
 
-        const result = await this.service.update(FilmData, version);
+        const result = await this.service.update(filmData, version);
         if (result instanceof FilmServiceError) {
             this.handleUpdateError(result, res);
             return;
@@ -255,7 +253,7 @@ export class FilmRequestHandler {
         }
 
         const { length } = versionHeader;
-
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         if (length < 3) {
             const msg = `Ungueltige Versionsnummer: ${versionHeader}`;
             logger.debug(
@@ -315,3 +313,5 @@ export class FilmRequestHandler {
         }
     }
 }
+
+/* eslint-enable max-lines */
