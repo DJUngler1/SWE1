@@ -1,4 +1,3 @@
-import { FilmArt, Verlag } from '../../entity';
 import type { FilmData } from '../../entity';
 import { Sprache } from '../../entity';
 
@@ -8,8 +7,8 @@ export const film: FilmData = {
     _id: '00000000-0000-0000-0000-000000000001',
     titel: 'Inception',
     regisseur: 'Christopher Nolan',
-    datum: 2010,
-    kategorien: 'Science-Fiction',
+    datum: new Date('2010-11-11'),
+    kategorien: ['sci-fi'],
     sprache: Sprache.ENGLISCH,
     hauptdarsteller: [
         {
@@ -22,6 +21,7 @@ export const film: FilmData = {
         },
     ],
     dauer: 148,
+    homepage: 'https://acme.com/',
     __v: 0,
     createdAt: 0,
     updatedAt: 0,
@@ -33,8 +33,8 @@ export const filme: FilmData[] = [
         _id: '00000000-0000-0000-0000-000000000002',
         titel: 'Fight Club',
         regisseur: 'David Fincher',
-        datum: 1999,
-        kategorien: 'Psychothriller',
+        datum: new Date('1999-11-11'),
+        kategorien: ['Psychothriller'],
         sprache: Sprache.ENGLISCH,
         hauptdarsteller: [
             {
@@ -47,6 +47,7 @@ export const filme: FilmData[] = [
             },
         ],
         dauer: 139,
+        homepage: 'https://acme.com/',
         __v: 0,
         createdAt: 0,
         updatedAt: 0,
