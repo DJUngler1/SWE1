@@ -16,7 +16,7 @@
 ###
 ### N e t z w e r k   -  V e r b i n d u n g   n o t w e n d i g
 ###
-
+//TODO: die Datei kann man wahrscheinlich löschen da wir nur Filme haben
 @host = localhost:3000/api
 #@host = gener-iert-12345.herokuapp.com/api
 

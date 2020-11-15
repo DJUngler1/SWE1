@@ -16,7 +16,7 @@
 ###
 ### N e t z w e r k   -  V e r b i n d u n g   n o t w e n d i g
 ###
-
+//TODO: Beschliesen ob wir zu Filmen auch Videos in die Daten Bank laden
 @host = localhost:3000/api
 #@host = gener-iert-12345.herokuapp.com/api
 

@@ -1,0 +1,20 @@
+{
+  "titel": "Der Herr der Ringe: Die Gefährten",
+  "regisseur": [
+    {
+      "vorname": "Peter",
+      "nachname": "Jackson"
+    }
+  ],
+  "datum": "2001-12-19" ,
+  "kategorien": ["Fantasy", "Abenteuer"] ,
+  "sprache": "DEUTSCH",
+  "hauptdarsteller": [
+    {
+      "vorname": "Elaijah",
+      "nachname": "Wood"
+    }
+  ],
+  "dauer": 171,
+  "homepage": "https/localhost:3000/HerrDerRinge" 
+}
