@@ -85,7 +85,7 @@ class App {
     private routes() {
         this.filmeRoutes();
         this.loginRoutes();
-        this.buchGraphqlRoutes();
+        this.filmGraphqlRoutes();
         this.htmlRoutes();
 
         this.app.get('*', notFound);
@@ -137,7 +137,7 @@ class App {
         this.app.use(PATHS.login, router);
     }
 
-    private buchGraphqlRoutes() {
+    private filmGraphqlRoutes() {
         const { playground } = serverConfig;
         // https://www.apollographql.com/docs/apollo-server/data/resolvers/#passing-resolvers-to-apollo-server
         const config: ApolloServerExpressConfig = {
