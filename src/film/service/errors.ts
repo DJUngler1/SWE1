@@ -1,5 +1,4 @@
-
-
+/* eslint-disable max-classes-per-file, @typescript-eslint/no-type-alias */
 import type { ValidationErrorMsg } from './../entity';
 
 export class FilmServiceError {} // eslint-disable-line @typescript-eslint/no-extraneous-class
@@ -15,14 +14,6 @@ export class TitelExists extends FilmServiceError {
         super();
     }
 }
-
-export class IsbnExists extends FilmServiceError {
-    constructor(readonly isbn: string, readonly id: string) {
-        super();
-    }
-}
-
-export type CreateError = FilmInvalid | TitelExists | IsbnExists;
 
 export class VersionInvalid extends FilmServiceError {
     constructor(readonly version: string | undefined) {
@@ -41,6 +32,8 @@ export class FilmNotExists extends FilmServiceError {
         super();
     }
 }
+
+export type CreateError = FilmInvalid | TitelExists;
 
 export type UpdateError =
     | FilmInvalid

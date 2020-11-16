@@ -5,7 +5,6 @@ import { format } from 'winston';
 // Log-Levels: error, warn, info, debug, verbose, silly, ...
 // Medien (= Transports): Console, File, ...
 // https://github.com/winstonjs/winston/blob/master/docs/transports.md
-// Alternative: Bunyan, Pino
 
 const { colorize, combine, json, simple, timestamp } = format;
 const { cloud, production } = serverConfig;

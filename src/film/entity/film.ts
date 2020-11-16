@@ -1,17 +1,17 @@
+// id,
+// titel,
+// regisseur,
+// datum,
+// kategorien,
+// sprache,
+// hauptdarsteller,
+// dauer
+
 export enum Sprache {
     DEUTSCH = 'DEUTSCH',
     ENGLISCH = 'ENGLISCH',
     FRANZÖSISCH = 'FRANZÖSISCH',
 }
-
-// ID,
-// Titel,
-// Regisseur,
-// Veröffentlichungsdatum,
-// Kategorien,
-// Sprache,
-// Haupdarsteller,
-// Dauer
 
 // gemeinsames Basis-Interface fuer REST und GraphQL
 export interface Film {
@@ -21,9 +21,10 @@ export interface Film {
     regisseur: unknown;
     datum: string | Date | undefined;
     kategorien?: string[];
-    sprache: Sprache | undefined | null;
+    sprache: Sprache | '' | undefined | null;
     hauptdarsteller: unknown;
     dauer: number;
+    homepage: string | undefined | null;
 }
 
 export interface FilmData extends Film {

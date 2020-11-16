@@ -1,5 +1,3 @@
-
-
 // Umgebungsvariable durch die Konfigurationsdatei .env
 import JSON5 from 'json5';
 import RE2 from 're2';
