@@ -4,7 +4,6 @@ import {
     internalError,
     logRequestHeader,
     notFound,
-    // notYetImplemented,
     responseTimeFn,
     serverConfig,
     validateContentType,
@@ -22,7 +21,7 @@ import {
 import { index, neuerFilm, suche } from './film/html';
 import { isAdmin, isAdminMitarbeiter, login, validateJwt } from './auth';
 import { json, urlencoded } from 'body-parser';
-// TODO: import { resolvers, typeDefs } from './film/graphql';
+import { resolvers, typeDefs } from './film/graphql';
 import { ApolloServer } from 'apollo-server-express';
 import type { ApolloServerExpressConfig } from 'apollo-server-express';
 import type { Options } from 'express-rate-limit';
