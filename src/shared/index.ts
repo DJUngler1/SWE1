@@ -4,4 +4,4 @@ export * from './db';
 export * from './functions';
 export * from './httpStatus';
 export * from './logger';
-// TODO export * from './request-handler';
+export * from './request-handler';
