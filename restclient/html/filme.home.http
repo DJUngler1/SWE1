@@ -1,0 +1,9 @@
+@host = localhost:3000/html
+
+### Homepage
+https://{{host}}
+Accept: text/html
+
+### Suche
+https://{{host}}/suche
+Accept: text/html

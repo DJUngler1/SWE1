@@ -1,5 +1,3 @@
-
-
 import { film, filme } from './film';
 import type { Film } from '../../entity';
 import JSON5 from 'json5';

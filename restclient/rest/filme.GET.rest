@@ -1,0 +1,34 @@
+@host = localhost:3000/api/buecher
+#@host = gener-iert-12345.herokuapp.com/api/buecher
+
+### Suche alle Filme
+https://{{host}}
+
+### Suche mit vorhandener Film ID
+https://{{host}}/00000000-0000-0000-0000-000000000001
+
+### Suche mit vorhandener Film ID und Versionsnummer
+https://{{host}}/00000000-0000-0000-0000-000000000001
+If-None-Match: "0"
+
+### Suche mit vorhandener Film ID und falscher Versionsnummer
+https://{{host}}/00000000-0000-0000-0000-000000000001
+If-None-Match: 0
+
+### Suche mit ungueltiger Film ID
+https://{{host}}/YYYYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY
+
+### Suche mit nicht vorhandener Film ID
+https://{{host}}/99999999-9999-9999-9999-999999999999
+
+### Suche mit vorhandenem Titel
+https://{{host}}?titel="Django Unchained"
+
+### Suche mit gueltigem Film Genre
+https://{{host}}?kategorie="action"
+
+### Suche mit gueltiger Sprache
+https://{{host}}?sprache=DEUTSCH
+
+### Suche Filme die kürzer als 2 Stunden sind
+https://{{host}}?dauer<120

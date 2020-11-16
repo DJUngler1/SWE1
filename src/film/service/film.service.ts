@@ -1,24 +1,24 @@
+/* eslint-disable max-lines */
 import type { Film, FilmData } from '../entity';
 import {
     FilmInvalid,
     FilmNotExists,
     FilmServiceError,
-    IsbnExists,
     TitelExists,
     VersionInvalid,
     VersionOutdated,
 } from './errors';
 import { FilmModel, validateFilm } from '../entity';
 import { dbConfig, logger, mailConfig, serverConfig } from '../../shared';
-import { FilmServiceMock } from './mock';
 import type { Document } from 'mongoose';
+import { FilmServiceMock } from './mock';
 import JSON5 from 'json5';
 import type { SendMailOptions } from 'nodemailer';
 import { startSession } from 'mongoose';
 
 const { mockDB } = dbConfig;
 
-
+/* eslint-disable require-await, no-null/no-null, unicorn/no-useless-undefined */
 export class FilmService {
     private readonly mock: FilmServiceMock | undefined;
 
@@ -37,7 +37,6 @@ export class FilmService {
     //           Promise-Objekt wird nicht den Status "fulfilled" erreichen.
     //           Stattdessen ist im Promise-Objekt die Fehlerursache enthalten.
 
-
     // Film mit id suchen
     async findById(id: string) {
         if (this.mock !== undefined) {
@@ -54,7 +53,7 @@ export class FilmService {
         return film ?? undefined;
     }
 
-    //Film mit query suchen
+    // Film mit query suchen
     async find(query?: any | undefined) {
         if (this.mock !== undefined) {
             return this.mock.find(query);
@@ -87,7 +86,6 @@ export class FilmService {
             }
         }
 
-        
         const schlagwoerter = [];
         if (javascript === 'true') {
             schlagwoerter.push('JAVASCRIPT');
@@ -192,16 +190,6 @@ export class FilmService {
         return Promise.resolve(result);
     }
 
-    async findOneAndUpdate(update: Film) {
-        if(this.mock !== undefined){
-            return this.mock.update(update);
-        }
-        logger.debug(
-            `FilmService.findOneAndUpdate(): update=${JSON5.stringify(update)}`,
-        );
-        
-    }
-
     async delete(id: string) {
         if (this.mock !== undefined) {
             return this.mock.remove(id);
@@ -236,17 +224,12 @@ export class FilmService {
             return resultTitel;
         }
 
-        const resultIsbn = await this.checkIsbnExists(film);
-        if (resultIsbn !== undefined) {
-            return resultIsbn;
-        }
-
         logger.debug('FilmService.validateCreate(): ok');
         return undefined;
     }
 
     private async checkTitelExists(film: Film) {
-        const { titel } =film;
+        const { titel } = film;
 
         // Pattern "Active Record" (urspruengl. von Ruby-on-Rails)
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -264,24 +247,6 @@ export class FilmService {
         return undefined;
     }
 
-    private async checkIsbnExists(film: Film) {
-        const { isbn } = film;
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        const tmpId = await FilmModel.findOne({ isbn }, { _id: true }).lean<
-            string
-        >();
-
-        if (tmpId !== null) {
-            logger.debug(
-                `FilmService.checkIsbnExists(): film=${JSON5.stringify(tmpId)}`,
-            );
-            return new IsbnExists(isbn as string, tmpId);
-        }
-
-        logger.debug('FilmService.checkIsbnExists(): ok');
-        return undefined;
-    }
-
     private async sendmail(filmData: FilmData) {
         if (serverConfig.cloud !== undefined) {
             // In der Cloud kann man z.B. "@sendgrid/mail" statt
@@ -289,8 +254,8 @@ export class FilmService {
             return;
         }
 
-        const from = '"Wayne Wonder" <Wayne.Wonders@acme.com>';
-        const to = '"Dora Deamon" <Dora.Deamon@acme.com>';
+        const from = '"SWE Team" <swe.team@acme.com>';
+        const to = '"Bruce Wayne" <bruce.wayce@acme.com>';
         const subject = `Neuer Film ${filmData._id}`;
         const body = `Der Film namens <strong>${filmData.titel}</strong> ist angelegt`;
 
@@ -394,3 +359,6 @@ export class FilmService {
         return undefined;
     }
 }
+
+/* eslint-enable require-await, no-null/no-null, unicorn/no-useless-undefined */
+/* eslint-enable max-lines */

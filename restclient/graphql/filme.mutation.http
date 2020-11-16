@@ -1,0 +1,64 @@
+@url = https://localhost:3000/graphql
+#@url = https://gener-iert-12345.herokuapp.com/graphql
+### Neuen Film anlegen
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  createBuch(
+    titel: "Fight Club"
+    regisseur: [
+      vorname: "David"
+      nachname: "Fincher"
+    ]
+    datum: "1999-11-11"
+    kategorien: ["Action", "Thriller"]
+    sprache: ENGLISCH
+    hauptdarsteller: [
+      vorname: "Brad"
+      nachname: "Pit"
+    ]
+    dauer: 139
+    homepage: "https://localhost:3000/fightclub"
+  ) {
+    _id
+  }
+}
+
+### Vorhandenen Film aktualisieren
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  updateBuch(
+    _id: "00000000-0000-0000-0000-000000000003",
+    titel: "Star Wars IV: a new hope",
+    regisseur:[
+      vorname: "George"
+      nachname: "Lucas"
+    ]
+    datum: "1978-02-09"
+    kategorien: ["Science Fiction", "Action"]
+    sprache: ENGLISCH
+    hauptdarsteller: [
+      vorname: "Mark"
+      nachname: "Hamill"
+    ]
+    dauer: 125
+    homepage: "https://localhost:3000/StarWars"
+    version: 0
+  ) {
+    version
+  }
+}
+
+### Vorhandenen Film loeschen
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  deleteFilm(id: "00000000-0000-0000-0000-000000000004")
+}

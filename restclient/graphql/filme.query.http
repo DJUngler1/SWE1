@@ -1,0 +1,56 @@
+@url = https://localhost:3000/graphql
+#@url = https://gener-iert-12345.herokuapp.com/graphql
+
+### Suche id, Titel, Dauer und Genres aller Filme
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+  filme {
+    id 
+    titel
+    dauer
+    kategorien
+  }
+}
+
+### Suche Titel, Dauer, Regisseur und Version eines Films mit vorhandener ID
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+  film(id: "00000000-0000-0000-0000-000000000001") {
+    titel
+    dauer
+    regisseur
+    version   
+  }
+}
+
+### Suche Titel und Genre von Filmen mit vorhandenem Titel
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+  filme(titel: "Django Unchained") {
+    titel
+    kategorien
+  }
+}
+
+
+### Suche Titel, Dauer und Schauspieler von Filmen mit vorhandenem Titel
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+  filme(titel: "Matrix") {
+    titel
+    dauer
+    hauptdarsteller
+  }
+}
