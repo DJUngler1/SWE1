@@ -33,6 +33,8 @@ export class FilmNotExists extends FilmServiceError {
     }
 }
 
+export type CreateError = FilmInvalid | TitelExists;
+
 export type UpdateError =
     | FilmInvalid
     | FilmNotExists
