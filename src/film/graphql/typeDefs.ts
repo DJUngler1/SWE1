@@ -1,5 +1,3 @@
-
-
 /**
  * Typdefinitionen fuer GraphQL:
  *  Vordefinierte skalare Typen
