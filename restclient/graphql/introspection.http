@@ -1,4 +1,4 @@
-//TODO: den Sinn dieser Datei verstehen
+// TODO: den Sinn dieser Datei verstehen
 @url = https://localhost:3000/graphql
 #@url = https://gener-iert-12345.herokuapp.com/graphql
 
