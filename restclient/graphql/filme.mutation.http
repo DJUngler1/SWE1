@@ -1,6 +1,5 @@
 @url = https://localhost:3000/graphql
 #@url = https://gener-iert-12345.herokuapp.com/graphql
-//TODO: Daten Anpassen
 ### Neuen Film anlegen
 POST {{url}}
 Content-Type: application/json
@@ -16,7 +15,10 @@ mutation {
     datum: "1999-11-11"
     kategorien: ["Action", "Thriller"]
     sprache: ENGLISCH
-    hauptdarsteller: ["Edward Norton", "Brad Pit"]
+    hauptdarsteller: [
+      vorname: "Brad"
+      nachname: "Pit"
+    ]
     dauer: 139
     homepage: "https://localhost:3000/fightclub"
   ) {
@@ -40,7 +42,10 @@ mutation {
     datum: "1978-02-09"
     kategorien: ["Science Fiction", "Action"]
     sprache: ENGLISCH
-    hauptdarsteller: ["Mark Hamill", "Carrie Fisher", "Harrison Ford"]
+    hauptdarsteller: [
+      vorname: "Mark"
+      nachname: "Hamill"
+    ]
     dauer: 125
     homepage: "https://localhost:3000/StarWars"
     version: 0
