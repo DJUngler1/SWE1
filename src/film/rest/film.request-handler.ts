@@ -6,7 +6,6 @@ import {
     FilmNotExists,
     FilmService,
     FilmServiceError,
-    IsbnExists,
     TitelExists,
     VersionInvalid,
     VersionOutdated,
@@ -202,20 +201,7 @@ export class FilmRequestHandler {
 
         if (err instanceof TitelExists) {
             this.handleTitelExists(err.titel, err.id, res);
-            return;
         }
-
-        if (err instanceof IsbnExists) {
-            this.handleIsbnExists(err.isbn, err.id, res);
-        }
-    }
-
-    private handleIsbnExists(isbn: string, id: string, res: Response) {
-        const msg = `Die ISBN-Nummer "${isbn}" existiert bereits bei ${id}.`;
-        logger.debug(`FilmRequestHandler.handleCreateError(): msg=${msg}`);
-        res.status(HttpStatus.BAD_REQUEST)
-            .set('Content-Type', 'text/plain')
-            .send(msg);
     }
 
     private handleValidationError(msg: ValidationErrorMsg, res: Response) {
@@ -313,5 +299,4 @@ export class FilmRequestHandler {
         }
     }
 }
-
 /* eslint-enable max-lines */
