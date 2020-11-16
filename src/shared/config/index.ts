@@ -1,5 +1,5 @@
 export * from './db';
-// TODO export * from './jwt';
+export * from './jwt';
 export * from './logger';
 export * from './mail';
 export * from './mime';
