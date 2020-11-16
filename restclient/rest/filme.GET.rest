@@ -1,4 +1,4 @@
-@host = localhost:3000/api/buecher
+@host = localhost:3000/api/filme
 #@host = gener-iert-12345.herokuapp.com/api/buecher
 
 ### Suche alle Filme
