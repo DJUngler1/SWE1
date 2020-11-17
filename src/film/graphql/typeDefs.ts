@@ -28,17 +28,6 @@ export const typeDefs = gql`
         FRANZOESISCH
     }
 
-    _id?: string; // eslint-disable-line @typescript-eslint/naming-convention
-    __v?: number; // eslint-disable-line @typescript-eslint/naming-convention
-    titel: string | undefined | null;
-    regisseur: unknown;
-    datum: string | Date | undefined;
-    kategorien?: string[];
-    sprache: Sprache | '' | undefined | null;
-    hauptdarsteller: unknown;
-    dauer: number;
-    homepage: string | undefined | null;
-
     "Datenschema eines Filmes, der empfangen oder gesendet wird"
     type Film {
         id: ID!
@@ -71,7 +60,7 @@ export const typeDefs = gql`
             dauer: Int
             homepage: String
         ): Film
-        updateBuch(
+        updateFilm(
             id: ID!
             version: Int
             titel: String!
@@ -82,7 +71,7 @@ export const typeDefs = gql`
             hauptdarsteller: String
             dauer: Int
             homepage: String
-        ): Buch
-        deleteBuch(id: ID!): Boolean
+        ): Film
+        deleteFilm(id: ID!): Boolean
     }
 `;

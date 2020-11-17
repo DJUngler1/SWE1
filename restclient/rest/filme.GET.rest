@@ -13,7 +13,7 @@ If-None-Match: "0"
 
 ### Suche mit vorhandener Film ID und falscher Versionsnummer
 https://{{host}}/00000000-0000-0000-0000-000000000001
-If-None-Match: 0
+If-None-Match: "-1"
 
 ### Suche mit ungueltiger Film ID
 https://{{host}}/YYYYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY
