@@ -1,7 +1,7 @@
 = Entwicklerhandbuch
-Tobias Hnyk <tobi.hnyk@gmail.com>
 Lisa Maus <maus.lisa@gmx.de>
-Felix Krauß <tobi.hnyk@gmail.com>
+Tobias  <maus.lisa@gmx.de>
+Felix  <maus.lisa@gmx.de>
 :doctype: book
 :toc: left
 :sectanchors:
