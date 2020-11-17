@@ -76,9 +76,9 @@ export class FilmRequestHandler {
             `FilmRequestHandler.find(): queryParams=${JSON5.stringify(query)}`,
         );
 
-        let buecher: FilmData[];
+        let filme: FilmData[];
         try {
-            buecher = await this.service.find(query);
+            filme = await this.service.find(query);
         } catch (err: unknown) {
             logger.error(
                 `FilmRequestHandler.find(): error=${JSON5.stringify(err)}`,
@@ -88,9 +88,9 @@ export class FilmRequestHandler {
         }
 
         logger.debug(
-            `FilmRequestHandler.find(): buecher=${JSON5.stringify(buecher)}`,
+            `FilmRequestHandler.find(): filme=${JSON5.stringify(filme)}`,
         );
-        if (buecher.length === 0) {
+        if (filme.length === 0) {
             logger.debug('FilmRequestHandler.find(): status = NOT_FOUND');
             res.sendStatus(HttpStatus.NOT_FOUND);
             return;
@@ -98,21 +98,21 @@ export class FilmRequestHandler {
 
         const baseUri = getBaseUri(req);
 
-        for await (const film of buecher) {
+        for await (const film of filme) {
             // eslint-disable-next-line no-underscore-dangle
             film._links = { self: { href: `${baseUri}/${film._id}` } };
         }
 
         logger.debug(
-            `FilmRequestHandler.find(): buecher=${JSON5.stringify(buecher)}`,
+            `FilmRequestHandler.find(): filme=${JSON5.stringify(filme)}`,
         );
-        buecher.forEach((film) => {
+        filme.forEach((film) => {
             delete film._id;
             delete film.__v;
             delete film.createdAt;
             delete film.updatedAt;
         });
-        res.json(buecher);
+        res.json(filme);
     }
 
     async create(req: Request, res: Response) {

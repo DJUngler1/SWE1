@@ -106,7 +106,7 @@ pipeline {
             steps {
                 parallel(
                     // 'Test': {
-                           // Cannot find module '/var/jenkins_home/workspace/buch/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node' from 'node_modules/bcrypt/bcrypt.js'
+                           // Cannot find module '/var/jenkins_home/workspace/film/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node' from 'node_modules/bcrypt/bcrypt.js'
                     //     sh 'npm run test:coverage'
                     // },
                     'ESLint': {

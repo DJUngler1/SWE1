@@ -6,7 +6,7 @@
  *      String:
  *      Boolean: true, false
  *      ID: eindeutiger Bezeichner, wird serialisiert wie ein String
- *  Buch: eigene Typdefinition für Queries
+ *  Film: eigene Typdefinition für Queries
  *        "!" markiert Pflichtfelder
  *  Query: Signatur der Lese-Methoden
  *  Mutation: Signatur der Schreib-Methoden
@@ -21,7 +21,7 @@ import { gql } from 'apollo-server-express';
 // (hier: gql) modifiziert. Die Funktion gql wird fuer Syntax-Highlighting und
 // fuer die Formatierung durch Prettier verwendet.
 export const typeDefs = gql`
-    "Enum-Typ fuer die Art eines Buches"
+    "Enum-Typ fuer die Sprache eines Films"
     enum Sprache {
         DEUTSCH
         ENGLISCH
@@ -61,7 +61,7 @@ export const typeDefs = gql`
             homepage: String
         ): Film
         updateFilm(
-            id: ID!
+            _id: ID!
             version: Int
             titel: String!
             regisseur: String
