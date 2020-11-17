@@ -1,20 +1,16 @@
 {
   "titel": "The Equalizer",
-  "regisseur": [
-    {
+  "regisseur": {
       "vorname": "Antoine",
       "nachname": "Fuqua"
-    }
-  ],
+    },
   "datum": 2014 ,
   "kategorien": ["Action", "Thriller"],
   "sprache": "DEUTSCH",
-  "hauptdarsteller": [
-    {
+  "hauptdarsteller": {
       "vorname": "Danzel",
       "nachname": "Washington"
-    }
-  ],
+    },
   "dauer": 171,
-  "homepage": "https/localhost:3000/HerrDerRinge" 
+  "homepage": "https://acme.com/" 
 }
