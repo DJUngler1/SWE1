@@ -1,0 +1,82 @@
+= Entwicklerhandbuch
+Lisa Maus <maus.lisa@gmx.de>
+Tobias  <maus.lisa@gmx.de>
+Felix  <maus.lisa@gmx.de>
+:doctype: book
+:toc: left
+:sectanchors:
+:sectlinks:
+:sectnums:
+:source-highlighter: coderay
+:icons: font
+:plantuml-server-url: http://www.plantuml.com/plantuml
+// Lokaler PlantUML-Server "docker run -d -p 8080:8080 plantuml/plantuml-server:jetty"
+// :plantuml-server-url: http://localhost:8080
+
+// https://github.com/asciidoctor/asciidoctorj
+// https://github.com/asciidoctor/asciidoctor-diagram
+// http://de.plantuml.com/classes.html
+// http://de.plantuml.com/component.html
+// https://github.com/odrotbohm/asciidoctor-plantuml
+
+== Der Applikationsserver
+
+=== Der Applikationsserver im Überblick
+
+Das Anwendungsfallsdiagramm mit den Akteuren Admin und Gast und ihren Use Cases im Überblick. 
+
+.Use Cases
+[plantuml,use-cases,svg]
+----
+include::use-cases.puml[]
+----
+
+Die Struktur des Applikationsservers mit seinen Komponenten und Schnittstellen.
+
+.Komponentendiagramm
+[plantuml,komponenten,svg]
+----
+include::komponenten.puml[]
+----
+
+=== Die REST-Schnittstelle
+
+Die Darstellung der im Boundary-Control-Entity Pattern realisierten Rest-Schnittstelle. 
+Handler Functions und FilmHandler steuern den Ablauf der ein- und ausgehenden requests bzw. responses.
+
+
+.Handler für die REST-Schnittstelle
+[plantuml,FilmHandler,svg]
+----
+include::FilmHandler.puml[]
+----
+
+=== Der Anwendungskern
+
+Der Anwendungskern mit der Darstellung der Geschäftslogik. 
+
+.Anwendungskern mit Mongoose
+[plantuml,FilmService,svg]
+----
+include::FilmService.puml[]
+----
+
+=== Interface für Entities und das Mongoose-Model
+
+Das Entitymodell "Film" mit Model und Schema, realisiert mit Mongoose. 
+
+.Entity, Model und Schema
+[plantuml,Film,svg]
+----
+include::Film.puml[]
+----
+
+== Programmierrichtlinien für TypeScript und JavaScript
+
+Für die Programmierung mit *TypeScript* und *JavaScript* wird folgende
+Styleguides empfehlenswert:
+
+[horizontal]
+_Microsoft_:: https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines
+_Angular_:: https://angular.io/docs/ts/latest/guide/style-guide.html
+_React_:: https://github.com/airbnb/javascript/tree/master/react
