@@ -83,7 +83,7 @@ export const filme = [
             nachname: 'Frakes',
             vorname: 'Jonathan',
         },
-        kategorien: ['Sci-fi', 'Action'],
+        kategorien: ['sci-fi', 'action'],
         sprache: 'ENGLISCH',
         datum: new Date('2010-07-29'),
         hauptdarsteller: {
@@ -103,7 +103,7 @@ export const filme = [
             nachname: 'David',
             vorname: 'Frankel',
         },
-        kategorien: ['Drama', 'Comedy'],
+        kategorien: ['drama', 'comedy'],
         sprache: 'ENGLISCH',
         datum: new Date('2006-10-12'),
         hauptdarsteller: {
