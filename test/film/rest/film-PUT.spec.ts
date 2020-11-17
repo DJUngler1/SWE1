@@ -35,7 +35,7 @@ const geaenderterFilm: object = {
 const idVorhanden = '00000000-0000-0000-0000-000000000004';
 
 const geaenderterFilmIdNichtVorhanden: object = {
-    titel: 'Star Trek: Geaendert',
+    titel: 'Scary Movie',
     regisseur: {nachname: 'Frakes',vorname: 'Jonathan',},
     kategorien: ['sci-fi', 'action'],
     sprache: 'ENGLISCH',
@@ -165,7 +165,7 @@ describe('PUT /filme/:id', () => {
         expect(response.status).to.be.equal(HttpStatus.BAD_REQUEST);
         const { sprache, datum } = await response.json();
         expect(sprache).to.be.equal(
-            'Die Sprache eines Films muss DEUTSCH oder ENGLISCH oder FRANZOESISCH sein.',
+            'Die Sprache eines Filmes muss DETUSCH oder ENGLISCH oder FRANZOESISCH sein.',
         );
         expect(datum).to.contain('ist kein gueltiges Datum');
     });

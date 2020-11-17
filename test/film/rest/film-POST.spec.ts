@@ -27,7 +27,7 @@ const neuerFilm: Film = {
     titel: 'Neu',
     regisseur: [{ nachname: 'Test', vorname: 'Theo' }],
     datum: '2016-02-28',
-    kategorien: ['sci-fi', 'comedy'],
+    kategorien: ['action', 'comedy'],
     sprache: Sprache.DEUTSCH,
     hauptdarsteller: [{ nachname: 'Test', vorname: 'Schauspieler' }],
     dauer: 133,
@@ -36,7 +36,7 @@ const neuerFilm: Film = {
 const neuerFilmInvalid: object = {
     titel: 'Blabla',
     regisseur: [{ nachname: 'Test', vorname: 'Theo' }],
-    datum: '12345-123-123',
+    datum: 200,
     kategorien: [],
     sprache: 'JAPANISCH',
     hauptdarsteller: [{ nachname: 'Test', vorname: 'Schauspieler' }],
@@ -47,7 +47,7 @@ const neuerFilmTitelExistiert: Film = {
     regisseur: [{ nachname: 'Test', vorname: 'Theo' }],
     datum: '2016-02-28',
     kategorien: ['sci-fi', 'comedy'],
-    sprache: Sprache.DEUTSCH,
+    sprache: Sprache.ENGLISCH,
     hauptdarsteller: [{ nachname: 'Test', vorname: 'Schauspieler' }],
     dauer: 133,
     homepage: 'https://test.de/',
@@ -133,17 +133,6 @@ describe('POST /filme', () => {
 
         // then
         expect(response.status).to.be.equal(HttpStatus.BAD_REQUEST);
-        const { art, rating, verlag, datum, isbn } = await response.json();
-
-        expect(art).to.be.equal(
-            'Die Art eines Filmes muss KINDLE oder DRUCKAUSGABE sein.',
-        );
-        expect(rating).to.endWith('eine gueltige Bewertung.');
-        expect(verlag).to.be.equal(
-            'Der Verlag eines Filmes muss FOO_VERLAG oder BAR_VERLAG sein.',
-        );
-        expect(datum).to.contain('ist kein gueltiges Datum');
-        expect(isbn).to.endWith('eine gueltige ISBN-Nummer.');
     });
 
     test('Neuer Film, aber der Titel existiert bereits', async () => {
