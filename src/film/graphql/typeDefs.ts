@@ -33,11 +33,9 @@ export const typeDefs = gql`
         id: ID!
         version: Int
         titel: String!
-        regisseur: String
         datum: String
         kategorien: [String]
         sprache: Sprache
-        hauptdarsteller: String
         dauer: Int
         homepage: String
     }
@@ -52,11 +50,9 @@ export const typeDefs = gql`
     type Mutation {
         createFilm(
             titel: String!
-            regisseur: String
             datum: String
             kategorien: [String]
             sprache: Sprache
-            hauptdarsteller: String
             dauer: Int
             homepage: String
         ): Film
@@ -64,11 +60,9 @@ export const typeDefs = gql`
             _id: ID!
             version: Int
             titel: String!
-            regisseur: String
             datum: String
             kategorien: [String]
             sprache: Sprache
-            hauptdarsteller: String
             dauer: Int
             homepage: String
         ): Film

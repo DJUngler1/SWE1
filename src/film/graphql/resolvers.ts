@@ -6,8 +6,8 @@ import {
     VersionOutdated,
 } from './../service/errors';
 
+import { FilmService, FilmServiceError } from '../service';
 import type { Film } from './../entity';
-import { FilmService } from '../service';
 // import type { IResolvers } from 'graphql-tools';
 import { logger } from '../../shared';
 
@@ -53,7 +53,10 @@ const createFilm = async (film: Film) => {
     film.datum = new Date(film.datum as string);
     const result = await filmService.create(film);
     console.log(`resolvers createFilm(): result=${JSON.stringify(result)}`);
-    return result;
+    if (result instanceof FilmServiceError) {
+        return;
+    }
+    return result._id;
 };
 
 const logUpdateResult = (
