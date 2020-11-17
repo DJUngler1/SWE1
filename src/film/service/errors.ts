@@ -58,6 +58,4 @@ export class MultipleFiles extends FilmFileServiceError {
 
 export type DownloadError = FilmNotExists | FileNotFound | MultipleFiles;
 
-export type CreateError = FilmInvalid | TitelExists;
-
 /* eslint-enable max-classes-per-file, @typescript-eslint/no-type-alias */
