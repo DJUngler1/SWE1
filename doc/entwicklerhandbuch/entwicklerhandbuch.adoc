@@ -1,5 +1,7 @@
 = Entwicklerhandbuch
-Tobias Hnyk <tobi.hnyk@gmail.cpm>
+Tobias Hnyk <tobi.hnyk@gmail.com>
+Lisa Maus <maus.lisa@gmx.de>
+Felix Krauß <tobi.hnyk@gmail.com>
 :doctype: book
 :toc: left
 :sectanchors:
@@ -21,7 +23,7 @@ Tobias Hnyk <tobi.hnyk@gmail.cpm>
 
 === Der Applikationsserver im Überblick
 
-bla bla
+Das Anwendungsfallsdiagramm mit den Akteuren Admin und Gast und ihren Use Cases im Überblick. 
 
 .Use Cases
 [plantuml,use-cases,svg]
@@ -29,7 +31,7 @@ bla bla
 include::use-cases.puml[]
 ----
 
-bla bla
+Die Struktur des Applikationsservers mit seinen Komponenten und Schnittstellen.
 
 .Komponentendiagramm
 [plantuml,komponenten,svg]
@@ -39,7 +41,9 @@ include::komponenten.puml[]
 
 === Die REST-Schnittstelle
 
-bla bla
+Die Darstellung der im Boundary-Control-Entity Pattern realisierten Rest-Schnittstelle. 
+Handler Functions und FilmHandler steuern den Ablauf der ein- und ausgehenden requests bzw. responses.
+
 
 .Handler für die REST-Schnittstelle
 [plantuml,FilmHandler,svg]
@@ -49,7 +53,7 @@ include::FilmHandler.puml[]
 
 === Der Anwendungskern
 
-bla bla
+Der Anwendungskern mit der Darstellung der Geschäftslogik. 
 
 .Anwendungskern mit Mongoose
 [plantuml,FilmService,svg]
@@ -59,7 +63,7 @@ include::FilmService.puml[]
 
 === Interface für Entities und das Mongoose-Model
 
-bla bla
+Das Entitymodell "Film" mit Model und Schema, realisiert mit Mongoose. 
 
 .Entity, Model und Schema
 [plantuml,Film,svg]
