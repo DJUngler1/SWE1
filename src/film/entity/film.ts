@@ -10,7 +10,7 @@
 export enum Sprache {
     DEUTSCH = 'DEUTSCH',
     ENGLISCH = 'ENGLISCH',
-    FRANZÖSISCH = 'FRANZÖSISCH',
+    FRANZOESISCH = 'FRANZOESISCH',
 }
 
 // gemeinsames Basis-Interface fuer REST und GraphQL

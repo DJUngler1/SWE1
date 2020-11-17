@@ -39,10 +39,10 @@ export const validateFilm = (film: Film) => {
     } else if (
         (sprache as unknown) !== 'DEUTSCH' &&
         (sprache as unknown) !== 'ENGLISCH' &&
-        (sprache as unknown) !== 'FRANZÖSISCH'
+        (sprache as unknown) !== 'FRANZOESISCH'
     ) {
         err.sprache =
-            'Die Sprache eines Filmes muss DETUSCH oder ENGLISCH oder FRANZÖSISCH sein.';
+            'Die Sprache eines Filmes muss DETUSCH oder ENGLISCH oder FRANZOESISCH sein.';
     }
 
     if (typeof datum === 'string' && !isISO8601(datum)) {
