@@ -71,7 +71,7 @@ export class FilmService {
         }
 
         // { titel: 'a', rating: 5, javascript: true }
-        const { titel, javascript, typescript, ...dbQuery } = query; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        const { titel, scifi, psychothriller, ...dbQuery } = query; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
         // Buecher zur Query (= JSON-Objekt durch Express) asynchron suchen
         if (titel !== undefined) {
@@ -86,17 +86,17 @@ export class FilmService {
             }
         }
 
-        const schlagwoerter = [];
-        if (javascript === 'true') {
-            schlagwoerter.push('JAVASCRIPT');
+        const kategorien = [];
+        if (scifi === 'true') {
+            kategorien.push('SCI-FI');
         }
-        if (typescript === 'true') {
-            schlagwoerter.push('TYPESCRIPT');
+        if (psychothriller === 'true') {
+            kategorien.push('PSYCHOTHRILLER');
         }
-        if (schlagwoerter.length === 0) {
-            delete dbQuery.schlagwoerter;
+        if (kategorien.length === 0) {
+            delete dbQuery.kategorien;
         } else {
-            dbQuery.schlagwoerter = schlagwoerter;
+            dbQuery.kategorien = kategorien;
         }
 
         logger.debug(`FilmService.find(): dbQuery=${JSON5.stringify(dbQuery)}`);
@@ -196,7 +196,7 @@ export class FilmService {
         }
         logger.debug(`FilmService.delete(): id=${id}`);
 
-        // Das Film zur gegebenen ID asynchron loeschen
+        // Den Film zur gegebenen ID asynchron loeschen
         const { deletedCount } = await FilmModel.deleteOne({ _id: id }); // eslint-disable-line @typescript-eslint/naming-convention
         logger.debug(`FilmService.delete(): deletedCount=${deletedCount}`);
         return deletedCount !== undefined;
@@ -255,7 +255,7 @@ export class FilmService {
         }
 
         const from = '"SWE Team" <swe.team@acme.com>';
-        const to = '"Bruce Wayne" <bruce.wayce@acme.com>';
+        const to = '"Bruce Wayne" <bruce.wayne@acme.com>';
         const subject = `Neuer Film ${filmData._id}`;
         const body = `Der Film namens <strong>${filmData.titel}</strong> ist angelegt`;
 
