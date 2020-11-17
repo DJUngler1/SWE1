@@ -46,7 +46,7 @@ const limiter = rateLimit(rateLimitOptions);
 
 const apiPath = '/api';
 export const PATHS = {
-    buecher: `${apiPath}/filme`,
+    filme: `${apiPath}/filme`,
     login: `${apiPath}/login`,
     graphql: '/graphql',
     html: '/html',
@@ -121,7 +121,7 @@ class App {
             .put(`/:${idParam}/file`, validateJwt, isAdminMitarbeiter, upload)
             .get(`/:${idParam}/file`, download);
 
-        this.app.use(PATHS.buecher, router);
+        this.app.use(PATHS.filme, router);
     }
 
     private loginRoutes() {

@@ -118,8 +118,8 @@ const deleteFilm = async (id: string) => {
 
 // Queries passend zu "type Query" in typeDefs.ts
 const query = {
-    // Buecher suchen, ggf. mit Titel als Suchkriterium
-    buecher: (_: unknown, { titel }: TitelCriteria) => findFilme(titel),
+    // Filme suchen, ggf. mit Titel als Suchkriterium
+    filme: (_: unknown, { titel }: TitelCriteria) => findFilme(titel),
     // Einen Film mit einer bestimmten ID suchen
     film: (_: unknown, { id }: IdCriteria) => findFilmById(id),
 };

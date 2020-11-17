@@ -61,11 +61,11 @@ export class FilmService {
 
         logger.debug(`FilmService.find(): query=${JSON5.stringify(query)}`);
 
-        // alle Buecher asynchron suchen u. aufsteigend nach titel sortieren
+        // alle Filme asynchron suchen u. aufsteigend nach titel sortieren
         // https://docs.mongodb.org/manual/reference/object-id
         // entries(): { titel: 'a', rating: 5 } => [{ titel: 'x'}, {rating: 5}]
         if (query === undefined || Object.entries(query).length === 0) {
-            logger.debug('FilmService.find(): alle Buecher');
+            logger.debug('FilmService.find(): alle Filme');
             // lean() liefert ein "Plain JavaScript Object" statt ein Mongoose Document
             return FilmModel.find().sort('titel').lean<FilmData>();
         }
@@ -73,7 +73,7 @@ export class FilmService {
         // { titel: 'a', rating: 5, javascript: true }
         const { titel, scifi, psychothriller, ...dbQuery } = query; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
-        // Buecher zur Query (= JSON-Objekt durch Express) asynchron suchen
+        // Filme zur Query (= JSON-Objekt durch Express) asynchron suchen
         if (titel !== undefined) {
             // Titel in der Query: Teilstring des Titels,
             // d.h. "LIKE" als regulaerer Ausdruck
