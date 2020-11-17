@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+  <%- include('partials/head') -%>
+
+  <body>
+    <%- include('partials/header') -%>
+
+    <div class="card mt-2">
+      <div class="card-header">
+        <i class="material-icons">folder_open</i>
+        <span class="ml-1 font-weight-bold">Alle B&uuml;cher</span>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-striped table-hover table-responsive">
+          <thead class="thead-default">
+            <tr>
+              <th>ID</th>
+              <th>Titel</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% filme.forEach((film) => { %>
+            <tr>
+              <td><%= film._id %></td>
+              <td><%= film.titel %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%- include('partials/scripts') -%>
+  </body>
+</html>
