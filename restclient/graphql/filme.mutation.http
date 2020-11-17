@@ -6,7 +6,7 @@ Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
 mutation {
-  createBuch(
+  createFilm(
     titel: "Fight Club"
     regisseur: [
       vorname: "David"
@@ -32,7 +32,7 @@ Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
 mutation {
-  updateBuch(
+  updateFilm(
     _id: "00000000-0000-0000-0000-000000000003",
     titel: "Star Wars IV: a new hope",
     regisseur:[

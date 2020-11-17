@@ -44,7 +44,7 @@ export const filme = [
             },
         ],
         kategorien: ['action', 'sci-fi', 'fantasy'],
-        sprache: 'FRANZÖSISCH',
+        sprache: 'FRANZOESISCH',
         datum: new Date('1999-06-17'),
         hauptdarsteller: {
             nachname: 'Reeves',

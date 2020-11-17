@@ -25,7 +25,7 @@ export const filmSchema = new Schema(
         sprache: {
             type: String,
             required: true,
-            enum: ['DEUTSCH', 'ENGLISCH', 'FRANZÖSISCH'],
+            enum: ['DEUTSCH', 'ENGLISCH', 'FRANZOESISCH'],
         },
         hauptdarsteller: [Schema.Types.Mixed],
     },

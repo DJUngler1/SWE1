@@ -25,7 +25,7 @@ export const typeDefs = gql`
     enum Sprache {
         DEUTSCH
         ENGLISCH
-        FRANZÖSISCH
+        FRANZOESISCH
     }
 
     _id?: string; // eslint-disable-line @typescript-eslint/naming-convention
