@@ -51,7 +51,7 @@ const findFilmById = async (id: string) => {
     return withIdAndVersion(film);
 };
 
-const findBuecher = async (titel: string | undefined) => {
+const findFilme = async (titel: string | undefined) => {
     const suchkriterium = titel === undefined ? {} : { titel };
     const filme = await filmService.find(suchkriterium);
     return filme.map((film) => withIdAndVersion(film));
@@ -135,7 +135,7 @@ const deleteFilm = async (id: string) => {
 // Queries passend zu "type Query" in typeDefs.ts
 const query = {
     // Buecher suchen, ggf. mit Titel als Suchkriterium
-    buecher: (_: unknown, { titel }: TitelCriteria) => findBuecher(titel),
+    buecher: (_: unknown, { titel }: TitelCriteria) => findFilme(titel),
     // Einen Film mit einer bestimmten ID suchen
     film: (_: unknown, { id }: IdCriteria) => findFilmById(id),
 };
