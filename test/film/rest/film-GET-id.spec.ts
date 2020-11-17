@@ -68,7 +68,7 @@ describe('GET /filme/:id', () => {
 
     afterAll(() => server.close());
 
-    each(idVorhanden).test('Buch zu vorhandener ID %s', async (id) => {
+    each(idVorhanden).test('Film zu vorhandener ID %s', async (id) => {
         // given
         const uri = `${filmeUri}/${id}`;
 
@@ -85,7 +85,7 @@ describe('GET /filme/:id', () => {
     });
 
     each(idNichtVorhanden).test(
-        'Kein Buch zu nicht-vorhandener ID %s',
+        'Kein Film zu nicht-vorhandener ID %s',
         async (id) => {
             // given
             const uri = `${filmeUri}/${id}`;
@@ -101,7 +101,7 @@ describe('GET /filme/:id', () => {
     );
 
     each(idVorhandenETag).test(
-        'Buch zu vorhandener ID %s mit ETag %s',
+        'Film zu vorhandener ID %s mit ETag %s',
         async (id, etag) => {
             // given
             const uri = `${filmeUri}/${id}`;
