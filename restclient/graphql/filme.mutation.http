@@ -8,21 +8,13 @@ X-REQUEST-TYPE: GraphQL
 mutation {
   createFilm(
     titel: "Fight Club"
-    regisseur: [
-      vorname: "David"
-      nachname: "Fincher"
-    ]
     datum: "1999-11-11"
     kategorien: ["Action", "Thriller"]
     sprache: ENGLISCH
-    hauptdarsteller: [
-      vorname: "Brad"
-      nachname: "Pit"
-    ]
     dauer: 139
-    homepage: "https://localhost:3000/fightclub"
+    homepage: "https://acme.com/"
   ) {
-    _id
+    id
   }
 }
 
@@ -35,19 +27,11 @@ mutation {
   updateFilm(
     _id: "00000000-0000-0000-0000-000000000003",
     titel: "Star Wars IV: a new hope",
-    regisseur:[
-      vorname: "George"
-      nachname: "Lucas"
-    ]
     datum: "1978-02-09"
     kategorien: ["Science Fiction", "Action"]
     sprache: ENGLISCH
-    hauptdarsteller: [
-      vorname: "Mark"
-      nachname: "Hamill"
-    ]
     dauer: 125
-    homepage: "https://localhost:3000/StarWars"
+    homepage: "https://acme.com/"
     version: 0
   ) {
     version

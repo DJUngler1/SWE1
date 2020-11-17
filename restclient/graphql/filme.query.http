@@ -15,7 +15,7 @@ X-REQUEST-TYPE: GraphQL
   }
 }
 
-### Suche Titel, Dauer, Regisseur und Version eines Films mit vorhandener ID
+### Suche Titel, Dauer und Version eines Films mit vorhandener ID
 POST {{url}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
@@ -24,7 +24,6 @@ X-REQUEST-TYPE: GraphQL
   film(id: "00000000-0000-0000-0000-000000000001") {
     titel
     dauer
-    regisseur
     version   
   }
 }
@@ -42,7 +41,7 @@ X-REQUEST-TYPE: GraphQL
 }
 
 
-### Suche Titel, Dauer und Schauspieler von Filmen mit vorhandenem Titel
+### Suche Titel, Dauer von Filmen mit vorhandenem Titel
 POST {{url}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
@@ -51,6 +50,5 @@ X-REQUEST-TYPE: GraphQL
   filme(titel: "Matrix") {
     titel
     dauer
-    hauptdarsteller
   }
 }
