@@ -66,7 +66,7 @@ pipeline {
 
                 // https://www.jenkins.io/doc/pipeline/steps/git
                 // "named arguments" statt Funktionsaufruf mit Klammern
-                git url: 'https://github.com/DJUngler1/SWE1', branch: 'master', poll: true
+                git url: 'file:///git-repository/beispiel', branch: 'master', poll: true
             }
         }
 
@@ -117,7 +117,7 @@ pipeline {
                     },
                     'Security': {
                         // FIXME https://github.com/ardatan/graphql-tools/issues/2041
-                       // sh 'npm audit --production'
+                        sh 'npm audit --production'
                     },
                     'AsciiDoctor': {
                         sh 'npm run asciidoc'
