@@ -22,7 +22,7 @@ import { resolve } from 'path';
 const argv = minimist(process.argv.slice(0));
 const values = argv._;
 
-const image = 'juergenzimmermann/film:1.0.0';
+const image = 'swe/film:1.0.0';
 const containername = 'film';
 
 const startContainer = () => {
