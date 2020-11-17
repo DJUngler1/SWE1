@@ -24,11 +24,11 @@ const { expect } = chai;
 // -----------------------------------------------------------------------------
 const geaenderterFilm: object = {
     titel: 'Star Trek: Geaendert',
-    regisseur: {nachname: 'Frakes',vorname: 'Jonathan',},
+    regisseur: { nachname: 'Frakes', vorname: 'Jonathan' },
     kategorien: ['sci-fi', 'action'],
     sprache: 'ENGLISCH',
     datum: new Date('2010-07-29'),
-    hauptdarsteller: {nachname: 'Stewart',vorname: 'Patrick',},
+    hauptdarsteller: { nachname: 'Stewart', vorname: 'Patrick' },
     dauer: 111,
     homepage: 'https://acme.com/',
 };
@@ -36,11 +36,11 @@ const idVorhanden = '00000000-0000-0000-0000-000000000004';
 
 const geaenderterFilmIdNichtVorhanden: object = {
     titel: 'Scary Movie',
-    regisseur: {nachname: 'Frakes',vorname: 'Jonathan',},
+    regisseur: { nachname: 'Frakes', vorname: 'Jonathan' },
     kategorien: ['sci-fi', 'action'],
     sprache: 'ENGLISCH',
     datum: new Date('2010-07-29'),
-    hauptdarsteller: {nachname: 'Stewart',vorname: 'Patrick',},
+    hauptdarsteller: { nachname: 'Stewart', vorname: 'Patrick' },
     dauer: 111,
     homepage: 'https://acme.com/',
 };
@@ -58,11 +58,11 @@ const geaenderterFilmInvalid: object = {
 
 const veralterFilm: object = {
     titel: 'Veraltet',
-    regisseur: {nachname: 'Frakes',vorname: 'Jonathan',},
+    regisseur: { nachname: 'Frakes', vorname: 'Jonathan' },
     kategorien: ['sci-fi', 'action'],
     sprache: Sprache.ENGLISCH,
     datum: new Date('2010-07-29'),
-    hauptdarsteller: {nachname: 'Stewart',vorname: 'Patrick',},
+    hauptdarsteller: { nachname: 'Stewart', vorname: 'Patrick' },
     dauer: 111,
     homepage: 'https://acme.com/',
 };

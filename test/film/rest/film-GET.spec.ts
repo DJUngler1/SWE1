@@ -106,29 +106,29 @@ describe('GET /filme', () => {
     );
 
     //each(SprachenVorhanden).test(
-      //  'Mind. 1 Film mit der Sprache "%s"',
-        //async (sprache) => {
-          // given
-          //  const uri = `${filmeUri}?${sprache}=true`;
+    //  'Mind. 1 Film mit der Sprache "%s"',
+    //async (sprache) => {
+    // given
+    //  const uri = `${filmeUri}?${sprache}=true`;
 
-            // when
-            //const response = await fetch(uri, { agent });
+    // when
+    //const response = await fetch(uri, { agent });
 
-            // then
-            //const { status} = response;
-            //expect(status).to.be.equal(HttpStatus.NOT_FOUND);
-            //expect(headers.get('Content-Type')).to.match(/json/iu);
-            // JSON-Array mit mind. 1 JSON-Objekt
-            //const body = await response.json();
-            //expect(body).not.to.be.empty;
+    // then
+    //const { status} = response;
+    //expect(status).to.be.equal(HttpStatus.NOT_FOUND);
+    //expect(headers.get('Content-Type')).to.match(/json/iu);
+    // JSON-Array mit mind. 1 JSON-Objekt
+    //const body = await response.json();
+    //expect(body).not.to.be.empty;
 
-            // Jeder Film hat im Array der Kategorien "sci-fi"
-            //body.map(
-            //    (film: FilmData) => film.sprache,
-            //).forEach((s: Array<string>) =>
-            //    expect(s).to.include(sprache.toUpperCase()),
-            //);
-        //},
+    // Jeder Film hat im Array der Kategorien "sci-fi"
+    //body.map(
+    //    (film: FilmData) => film.sprache,
+    //).forEach((s: Array<string>) =>
+    //    expect(s).to.include(sprache.toUpperCase()),
+    //);
+    //},
     //);
 
     each(SprachenNichtVorhanden).test(

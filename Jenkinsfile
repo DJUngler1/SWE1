@@ -115,10 +115,10 @@ pipeline {
                     'EJS-Lint': {
                         sh 'npm run ejs-lint'
                     },
-                    'Security': {
+                    //'Security': {
                         // FIXME https://github.com/ardatan/graphql-tools/issues/2041
-                        sh 'npm audit --production'
-                    },
+                       // sh 'npm audit --production'
+                   // },
                     'AsciiDoctor': {
                         sh 'npm run asciidoc'
                     },
