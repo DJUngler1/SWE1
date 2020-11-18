@@ -1,7 +1,5 @@
 = Entwicklerhandbuch
 Lisa Maus <maus.lisa@gmx.de>
-Tobias  <maus.lisa@gmx.de>
-Felix  <maus.lisa@gmx.de>
 :doctype: book
 :toc: left
 :sectanchors:
